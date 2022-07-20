@@ -8,6 +8,12 @@ Simple web page, using OpenLayer API, to plot Shape in WKT (Well Know Text Forma
 
 ## Deployment
 
+To test instal:
+
+```bash
+npm install
+```
+
 To test run:
 
 ```bash
