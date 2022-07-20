@@ -7,7 +7,24 @@
     <title>Using OpenLayers with Vite</title>
   </head>
   <body>
-    <div id="map"></div>
+    <div class="content">
+      <div class="header">
+        <div>
+          <select id="layer-select">
+            <option value="Aerial">Aerial</option>
+            <option value="AerialWithLabelsOnDemand" selected>Aerial with labels</option>
+            <option value="RoadOnDemand">Road</option>
+            <!--<option value="CanvasDark">Road dark</option>
+            <option value="OrdnanceSurvey">Ordnance Survey</option>-->
+            <option value="OSM">OpenLayers Map</option>
+            <!--<option value="StamenWaterColor">Stamen Watercolor Map</option>-->
+            <option value="StamenTerrain">Stamen Terrain Map</option>
+            <option value="StamenToner">Stamen Toner Map</option>
+          </select>
+        </div>
+      </div>
+      <div id="map"></div>
+    </div>
     <script type="module" src="./main.js"></script>
   </body>
 </html>

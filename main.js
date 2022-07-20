@@ -1,10 +1,11 @@
 import './style.css';
 import {Feature, Map, View} from 'ol';
 import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer.js';
-import {OSM, Vector as VectorSource} from 'ol/source.js';
+import {OSM, BingMaps, Stamen, Vector as VectorSource} from 'ol/source.js';
 import {getCenter} from 'ol/extent';
 import {WKT} from 'ol/format';
 import {Point} from 'ol/geom.js';
+
 //import {BingMaps, Stamen} from 'ol/source.js';
 //import {addEquivalentProjections, Projection, get as getProjection} from 'ol/proj';
 //import Projection from 'ol/proj/projection';
@@ -115,21 +116,65 @@ if(params.lat && params.long) {
 }
 var layers = [];
 
-// const raster = new TileLayer({
-//   source: new Stamen({
-//     layer: 'watercolor',
-//   }),
-// });
+const styles = [
+  'RoadOnDemand',
+  'Aerial',
+  'AerialWithLabelsOnDemand',
+  //'CanvasDark',
+  //'OrdnanceSurvey',
+];
 
-// const raster = new TileLayer({
-//   source: new BingMaps({faltam aqui parametro}),
-// });
+let i;
+for ( i=0; i<styles.length; i++){
+  layers.push(
+    new TileLayer({
+      visible: false,
+      preload: Infinity,
+      source: new BingMaps({
+        key: 'AteGu1x0N9OLBvehqeDT1k1xoau6fdYqxxe7o8bCyj7FNZdgXSXBvIShUs1HZKeU',
+        imagerySet: styles[i]
+      })
+    })
+  );
+}
 
-const raster = new TileLayer({
-  source: new OSM(),
-});
+styles.push("OSM")
 
-layers.push(raster);
+layers.push(new TileLayer({
+    visible: false,
+    source: new OSM(),
+  })
+);
+
+// styles.push("StamenWaterColor")
+
+// layers.push(new TileLayer({
+//     visible: false,
+//     source: new Stamen({
+//       layer: 'watercolor',
+//     }),
+//   })
+// );
+
+styles.push("StamenTerrain")
+
+layers.push(new TileLayer({
+    visible: false,
+    source: new Stamen({
+      layer: 'terrain',
+    }),
+  })
+);
+
+styles.push("StamenToner")
+
+layers.push(new TileLayer({
+    visible: false,
+    source: new Stamen({
+      layer: 'toner',
+    }),
+  })
+);
 
 var coord;
 var geometry;
@@ -214,7 +259,20 @@ const position = [size[0]/2, size[1]/2];
 // console.log(size);
 // console.log(position);
 
-view.centerOn(coord, size, position);
-view.fit(geometry);
-view.adjustZoom(zoomOut);
+if(useLocal || useWkt){
+  view.centerOn(coord, size, position);
+  view.fit(geometry);
+  view.adjustZoom(zoomOut);
+}
 
+
+const select = document.getElementById('layer-select');
+function onChange() {
+  const style = select.value;
+  for (let i = 0; i < styles.length; i++) {
+    layers[i].setVisible(styles[i] === style);
+  }
+}
+
+select.addEventListener('change', onChange);
+onChange();
