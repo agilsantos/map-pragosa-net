@@ -5,6 +5,15 @@ import {OSM, BingMaps, Stamen, Vector as VectorSource} from 'ol/source.js';
 import {getCenter} from 'ol/extent';
 import {WKT} from 'ol/format';
 import {Point} from 'ol/geom.js';
+import {
+  Circle as CircleStyle,
+  Fill,
+  Icon,
+  Stroke,
+  Style,
+} from 'ol/style';
+
+import imgUrl from './resources/truck-icon.png';
 
 //import {BingMaps, Stamen} from 'ol/source.js';
 //import {addEquivalentProjections, Projection, get as getProjection} from 'ol/proj';
@@ -180,6 +189,33 @@ var coord;
 var geometry;
 var zoomOut;
 
+
+const markerStyles = {
+  'route': new Style({
+    stroke: new Stroke({
+      width: 6,
+      color: [237, 212, 0, 0.8],
+    }),
+  }),
+  'icon': new Style({
+    image: new Icon({
+      anchor: [0.5, 1],
+      src: imgUrl,
+    }),
+  }),
+  'geoMarker': new Style({
+    image: new CircleStyle({
+      radius: 7,
+      fill: new Fill({color: 'black'}),
+      stroke: new Stroke({
+        color: 'white',
+        width: 2,
+      }),
+    }),
+  }),
+};
+
+
 if(useWkt) 
 {
   console.log(wkt);
@@ -210,7 +246,7 @@ if(useWkt)
   const vectorWkt = new VectorLayer({
     source: new VectorSource({
       features: [new Feature({geometry:geometry})],
-    }),
+    })
   });
 
   coord = getCenter(geometry.getExtent());
@@ -233,11 +269,12 @@ if(useLocal){
     source:new VectorSource({
       features: [new Feature({geometry:geometry})]
     }),
+    style: markerStyles.icon,
   });
 
   coord = getCenter(geometry.getExtent());
   layers.push(vectorLocal);
-  zoomOut = -20.5
+  zoomOut = -10
 }
 // console.log(layers);
 
