@@ -1,18 +1,33 @@
-# OpenLayers + Vite
+# Map Pragosa
 
-This example demonstrates how the `ol` package can be used with [Vite](https://vitejs.dev/).
+Simple web page, using OpenLayer API, to plot Shape in WKT (Well Know Text Format) or a Point with a Longitude and Latitude. Sending parameters in URL.
 
-To get started, run the following (requires Node 12+):
+## Authors
 
-    npx create-ol-app my-app --template vite
+- [@agilsantos](https://www.github.com/agilsantos)
 
-Then change into your new `my-app` directory and start a development server (available at http://localhost:3000):
+## Deployment
 
-    cd my-app
-    npm start
+To test run:
+
+```bash
+npm start
+```
 
 To generate a build ready for production:
 
-    npm run build
+```bash
+npm run build
+```
 
 Then deploy the contents of the `dist` directory to your server.  You can also run `npm run serve` to serve the results of the `dist` directory for preview.
+
+To deploy in docker, use docker compose.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+## Appendix
+
+[OpenLayers.org](https://openlayers.org/)
