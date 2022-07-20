@@ -1,0 +1,6 @@
+docker build -t map-pragosa-net .
+
+docker run -it --rm -d -p 8080:80 --name web-map-pragosa-net map-pragosa-net
+
+docker exec -it  web-map-pragosa-net /bin/sh
+docker exec -it  map-pragosa-net-web-1 /bin/bash
